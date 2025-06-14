@@ -22,5 +22,11 @@
     "src": "plants4.png",
     "alt": "plants Item 4",
     "visibility": "hidden"
+  },
+  {
+    "id": "plants_5",
+    "src": "plants5.png",
+    "alt": "plants Item 5",
+    "visibility": "hidden"
   }
 ]
