@@ -1,0 +1,26 @@
+[
+  {
+    "id": "plants_1",
+    "src": "plants1.png",
+    "alt": "plants Item 1",
+    "visibility": "hidden"
+  },
+  {
+    "id": "plants_2",
+    "src": "plants2.png",
+    "alt": "plants Item 2",
+    "visibility": "hidden"
+  },
+  {
+    "id": "plants_3",
+    "src": "plants3.png",
+    "alt": "plants Item 3",
+    "visibility": "hidden"
+  },
+  {
+    "id": "plants_4",
+    "src": "plants5.png",
+    "alt": "plants Item 5",
+    "visibility": "hidden"
+  }
+]

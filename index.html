@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>ซอมบี้อ้วนจัด</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="three_scroll_bar_style.css" />
+  <link rel="stylesheet" href="scroll.css" />
+</head>
+<body>
+  <div class="main-menu">
+    <img src="Mainmenu.png" alt="Main Menu Image" />
+    <button onclick="enterGame()">Play</button>
+  </div>
+
+  <div class="game-container">
+    <div class="base-container">
+      <img id="base-image" src="Base.png" alt="Base Image" />
+    </div>
+
+    <div class="controls">
+      <div class="combined-scroll-bar" id="presetScrollBar"></div>
+      <div class="combined-scroll-bar" id="categoryScrollBar"></div>
+      <div class="scrollable-buttons"></div>
+    </div>
+
+    <!-- 🎵 Music Controls -->
+    <div class="music-button-wrapper">
+      <button id="musicToggleButton" class="music-toggle-button">🔊 Music On</button>
+    </div>
+    <div class="music-select-wrapper">
+      <label for="musicSelector">🎵 Choose Music:</label>
+      <select id="musicSelector" class="music-selector">
+        <option value="your-music.mp3">Modern Day (First Wave)</option>
+        <option value="track2.mp3">Track 2</option>
+        <option value="track3.mp3">Track 3</option>
+      </select>
+    </div>
+    <audio id="backgroundMusic" loop>
+      <source src="your-music.mp3" type="audio/mp3" />
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="preset.js"></script>
+  <script src="scrolls.js"></script>
+</body>
+</html>
