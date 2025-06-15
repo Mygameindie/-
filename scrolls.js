@@ -1,38 +1,23 @@
-
 document.addEventListener("DOMContentLoaded", () => {
     const presetScrollBar = document.getElementById("presetScrollBar");
     const categoryScrollBar = document.getElementById("categoryScrollBar");
     const buttonContainer = document.querySelector(".scrollable-buttons");
 
+    // === PRESET CONFIG ===
     const presets = [
-        { name: "Default", action: applyCustomPreset },
-        { name: "Default no shirt", action: applyCustomPreset2 },
-        { name: "introvert", action: applyIntrovertPreset },
-        { name: "tennis", action: applyTennisPreset },
-        { name: "reverse", action: applyReversePreset },
-        { name: "pajama", action: applypajamasPreset },
-        { name: "Student", action: applyPreset1 },
-        { name: "Beach", action: applyPresetBeach },
-        { name: "Remove", action: applyUnderwearOnlyPreset },
+        
+    { name: "OC", action: applyPreset1 },      // จาก ที่เก็บถาวร 3.zip
+    { name: "Default", action: applyPreset2 }, // จาก ที่เก็บถาวร 2.zip
+    { name: "Space", action: applyPreset3 }    // จาก ที่เก็บถาวร.zip
     ];
 
-    const categories = [
-  'hair',
-  'face',
-  'bottomunderwear',
-  'topunderwear',
-  'shoes',
-  'pants',
-  'skirt',
-  'top',
-  'dress',
-  'jacket',
-  'accessories',
-  'hat',
-  'plants',
-  'weapon'
-
-    ];
+    // Use jsonFiles from global context if available
+    const categories = (typeof jsonFiles !== 'undefined')
+        ? jsonFiles.map(file => file.replace('.json', ''))
+        : [
+            "hair", "face", "topunderwear", "shoes", "pants", "skirt",
+            "top", "dress", "jacket", "accessories", "hat", "plants", "weapon"
+        ];
 
     function generatePresetButtons() {
         presetScrollBar.innerHTML = "";
@@ -84,55 +69,57 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    function enableDragScroll(scrollElement) {
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        scrollElement.addEventListener('mousedown', (e) => {
+            isDown = true;
+            scrollElement.classList.add('dragging');
+            startX = e.pageX - scrollElement.offsetLeft;
+            scrollLeft = scrollElement.scrollLeft;
+        });
+
+        scrollElement.addEventListener('mouseleave', () => {
+            isDown = false;
+            scrollElement.classList.remove('dragging');
+        });
+
+        scrollElement.addEventListener('mouseup', () => {
+            isDown = false;
+            scrollElement.classList.remove('dragging');
+        });
+
+        scrollElement.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - scrollElement.offsetLeft;
+            const walk = (x - startX) * 1.5;
+            scrollElement.scrollLeft = scrollLeft - walk;
+        });
+    }
+
+    function enableWheelScroll(scrollElement) {
+        scrollElement.addEventListener("wheel", (evt) => {
+            if (evt.deltaY !== 0) {
+                evt.preventDefault();
+                scrollElement.scrollLeft += evt.deltaY;
+            }
+        }, { passive: false });
+    }
+
+    // === Init Calls ===
     generatePresetButtons();
     generateCategoryButtons();
 
-    // Scroll behavior for each bar
-    [presetScrollBar, categoryScrollBar].forEach(scrollEl => {
-        scrollEl.addEventListener("wheel", (evt) => {
-            if (evt.deltaY !== 0) {
-                evt.preventDefault();
-                scrollEl.scrollLeft += evt.deltaY;
-            }
-        }, { passive: false });
-    });
-});
-function enableDragScroll(scrollElement) {
-    let isDown = false;
-    let startX;
-    let scrollLeft;
+    if (presetScrollBar) {
+        enableDragScroll(presetScrollBar);
+        enableWheelScroll(presetScrollBar);
+    }
 
-    scrollElement.addEventListener('mousedown', (e) => {
-        isDown = true;
-        scrollElement.classList.add('dragging');
-        startX = e.pageX - scrollElement.offsetLeft;
-        scrollLeft = scrollElement.scrollLeft;
-    });
-
-    scrollElement.addEventListener('mouseleave', () => {
-        isDown = false;
-        scrollElement.classList.remove('dragging');
-    });
-
-    scrollElement.addEventListener('mouseup', () => {
-        isDown = false;
-        scrollElement.classList.remove('dragging');
-    });
-
-    scrollElement.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - scrollElement.offsetLeft;
-        const walk = (x - startX) * 1.5; // Scroll speed
-        scrollElement.scrollLeft = scrollLeft - walk;
-    });
-}
-
-// Enable drag scrolling on load
-document.addEventListener("DOMContentLoaded", () => {
-    const presetScroll = document.getElementById("presetScrollBar");
-    const categoryScroll = document.getElementById("categoryScrollBar");
-
-    if (presetScroll) enableDragScroll(presetScroll);
-    if (categoryScroll) enableDragScroll(categoryScroll);
+    if (categoryScrollBar) {
+        enableDragScroll(categoryScrollBar);
+        enableWheelScroll(categoryScrollBar);
+    }
 });
