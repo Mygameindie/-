@@ -6,9 +6,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // === PRESET CONFIG ===
     const presets = [
      { name: "remove", action: applyPreset4 }, 
+	 { name: "OC", action: applyPreset1 },  
     { name: "Default", action: applyPreset2 },	
     { name: "future", action: applyPreset3 },	
-    { name: "OC", action: applyPreset1 },  
+    
 	{ name: "breakdancer", action: applyPreset5 },  
     // จาก ที่เก็บถาวร 3.zip
      // จาก ที่เก็บถาวร 2.zip
