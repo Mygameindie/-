@@ -40,6 +40,9 @@ function applyPreset3() {
     forceShowItem("pants1.png", "pants");
     forceShowItem("shoes1.png", "shoes");
 }
+function applyPreset4() {
+    hideAllCategories();
+}
 
 // Utility: Keep your original forceShowItem()
 function forceShowItem(itemId, categoryName) {
