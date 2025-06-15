@@ -1,18 +1,18 @@
 [
   {
-    "id": "shoes_1",
+    "id": "shoes1",
     "src": "shoes1.png",
     "alt": "shoes Item 1",
     "visibility": "hidden"
   },
   {
-    "id": "shoes_2",
+    "id": "shoes2",
     "src": "shoes2.png",
     "alt": "shoes Item 2",
     "visibility": "hidden"
   },
   {
-    "id": "shoes_3",
+    "id": "shoes3",
     "src": "shoes3.png",
     "alt": "shoes Item 3",
     "visibility": "hidden"

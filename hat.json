@@ -1,30 +1,30 @@
 [
   {
-    "id": "hat_1",
+    "id": "hat1",
     "src": "hat1.png",
     "alt": "hat Item 1",
     "visibility": "hidden"
   },
   {
-    "id": "hat_2",
+    "id": "hat2",
     "src": "hat2.png",
     "alt": "hat Item 2",
     "visibility": "hidden"
   },
   {
-    "id": "hat_3",
+    "id": "hat3",
     "src": "hat3.png",
     "alt": "hat Item 3",
     "visibility": "hidden"
   },
   {
-    "id": "hat_4",
+    "id": "hat4",
     "src": "hat4.png",
     "alt": "hat Item 4",
     "visibility": "hidden"
   },
   {
-    "id": "hat_5",
+    "id": "hat5",
     "src": "hat5.png",
     "alt": "hat Item 5",
     "visibility": "hidden"

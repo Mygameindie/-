@@ -1,18 +1,18 @@
 [
   {
-    "id": "top_1",
+    "id": "top1",
     "src": "top1.png",
     "alt": "top Item 1",
     "visibility": "hidden"
   },
   {
-    "id": "top_2",
+    "id": "top2",
     "src": "top2.png",
     "alt": "top Item 2",
     "visibility": "hidden"
   },
   {
-    "id": "top_3",
+    "id": "top3",
     "src": "top3.png",
     "alt": "top Item 3",
     "visibility": "hidden"

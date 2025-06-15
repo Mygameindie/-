@@ -1,12 +1,12 @@
 [
   {
-    "id": "pants_1",
+    "id": "pants1",
     "src": "pants1.png",
     "alt": "pants Item 1",
     "visibility": "hidden"
   },
   {
-    "id": "pants_2",
+    "id": "pants2",
     "src": "pants2.png",
     "alt": "pants Item 2",
     "visibility": "hidden"

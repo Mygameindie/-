@@ -1,30 +1,30 @@
 [
   {
-    "id": "plants_1",
+    "id": "plants1",
     "src": "plants1.png",
     "alt": "plants Item 1",
     "visibility": "hidden"
   },
   {
-    "id": "plants_2",
+    "id": "plants2",
     "src": "plants2.png",
     "alt": "plants Item 2",
     "visibility": "hidden"
   },
   {
-    "id": "plants_3",
+    "id": "plants3",
     "src": "plants3.png",
     "alt": "plants Item 3",
     "visibility": "hidden"
   },
   {
-    "id": "plants_4",
+    "id": "plants4",
     "src": "plants4.png",
     "alt": "plants Item 4",
     "visibility": "hidden"
   },
   {
-    "id": "plants_5",
+    "id": "plants5",
     "src": "plants5.png",
     "alt": "plants Item 5",
     "visibility": "hidden"
