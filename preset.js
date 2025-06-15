@@ -21,6 +21,7 @@ function applyPreset1() {
     forceShowItem("hat5.png", "hat");
     forceShowItem("dress1.png", "dress");
     forceShowItem("shoes3.png", "shoes");
+	forceShowItem("topunderwear1.png", "topunderwear");
 }
 
 // Preset 2: จาก `ที่เก็บถาวร 2.zip`

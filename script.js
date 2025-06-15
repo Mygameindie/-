@@ -309,16 +309,28 @@ function setupMusicSelector() {
         plantItems.forEach(item => item.style.visibility = "hidden");
 
         // Show plants6.png
-        const target = document.getElementById("plantshidden.png");
-        if (target) {
-            target.style.visibility = "visible";
-            target.style.display = "block";
-            target.style.position = "absolute";
-            target.style.left = "0";
-            target.style.top = "0";
-            target.style.zIndex = getZIndex("plants");
+        const plantTarget = document.getElementById("plantshidden.png");
+if (plantTarget) {
+    plantTarget.style.visibility = "visible";
+    plantTarget.style.display = "block";
+    plantTarget.style.position = "absolute";
+    plantTarget.style.left = "0";
+    plantTarget.style.top = "0";
+    plantTarget.style.zIndex = getZIndex("plants");
+}
+
+const weaponTarget = document.getElementById("weapon4.png");
+if (weaponTarget) {
+    weaponTarget.style.visibility = "visible";
+    weaponTarget.style.display = "block";
+    weaponTarget.style.position = "absolute";
+    weaponTarget.style.left = "0";
+    weaponTarget.style.top = "0";
+    weaponTarget.style.zIndex = getZIndex("weapons");
+}
+			
         }
-    }
+    
     });
 }
 
