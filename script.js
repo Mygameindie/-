@@ -353,3 +353,6 @@ function releaseButton2(event) {
     document.getElementById("base3-image").style.display = "none";
 }
 
+
+
+window.getZIndex = getZIndex;
