@@ -293,14 +293,32 @@ function setupMusicSelector() {
     const audio = document.getElementById("backgroundMusic");
     const source = audio.querySelector("source");
 
-    selector.addEventListener("change", () => {
-        const selectedTrack = selector.value;
-        source.src = selectedTrack;
-        audio.load();
-        audio.play().catch(e => console.warn("Playback issue:", e));
+   selector.addEventListener("change", () => {
+    const selectedTrack = selector.value;
+    source.src = selectedTrack;
+    audio.load();
+    audio.play().catch(e => console.warn("Playback issue:", e));
 
-        const button = document.getElementById("musicToggleButton");
-        if (button) button.textContent = "🔊 Music On";
+    const button = document.getElementById("musicToggleButton");
+    if (button) button.textContent = "🔊 Music On";
+
+    // 🌿 Automatically change plants to plants6.png when Track 4 is selected
+    if (selectedTrack === "my-music3.mp3") {
+        // Hide all other plant items
+        const plantItems = document.querySelectorAll(".plants");
+        plantItems.forEach(item => item.style.visibility = "hidden");
+
+        // Show plants6.png
+        const target = document.getElementById("plantshidden.png");
+        if (target) {
+            target.style.visibility = "visible";
+            target.style.display = "block";
+            target.style.position = "absolute";
+            target.style.left = "0";
+            target.style.top = "0";
+            target.style.zIndex = getZIndex("plants");
+        }
+    }
     });
 }
 
@@ -356,3 +374,4 @@ function releaseButton2(event) {
 
 
 window.getZIndex = getZIndex;
+

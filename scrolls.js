@@ -5,11 +5,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // === PRESET CONFIG ===
     const presets = [
-        
+     { name: "remove", action: applyPreset4 }, 
+    { name: "Default", action: applyPreset2 },	
+    { name: "future", action: applyPreset3 },	
     { name: "OC", action: applyPreset1 },      // จาก ที่เก็บถาวร 3.zip
-    { name: "Default", action: applyPreset2 }, // จาก ที่เก็บถาวร 2.zip
-    { name: "Space", action: applyPreset3 },
-	{ name: "remove", action: applyPreset4 }	// จาก ที่เก็บถาวร.zip
+     // จาก ที่เก็บถาวร 2.zip
+
+		// จาก ที่เก็บถาวร.zip
     ];
 
     // Use jsonFiles from global context if available
