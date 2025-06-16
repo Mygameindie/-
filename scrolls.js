@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { name: "future", action: applyPreset3 },	
     
 	{ name: "breakdancer", action: applyPreset5 },  
+	{ name: "parasol", action: applyPreset6 },  
     // จาก ที่เก็บถาวร 3.zip
      // จาก ที่เก็บถาวร 2.zip
 
