@@ -22,6 +22,7 @@ function applyPreset1() {
     forceShowItem("shoes3.png", "shoes");
 	forceShowItem("topunderwear1.png", "topunderwear");
 	forceShowItem("hair1.png","hair");
+	forceShowItem("weapon6.png","weapon");
 }
 
 // Preset 2: จาก `ที่เก็บถาวร 2.zip`
