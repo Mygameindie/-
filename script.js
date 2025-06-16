@@ -14,6 +14,7 @@ const jsonFiles = [
     'hat.json', 
 	'plants.json',
 	'weapon.json',
+	
 ];
 
 // Color palette for clothing items
@@ -333,12 +334,24 @@ if (weaponTarget) {
     
     });
 }
+function setupButterToggle() {
+    const butterImg = document.getElementById("butter1");
+    const toggleBtn = document.getElementById("toggleButterBtn");
+
+    if (!butterImg || !toggleBtn) return;
+
+    toggleBtn.addEventListener("click", () => {
+        const isVisible = butterImg.style.display === "block";
+        butterImg.style.display = isVisible ? "none" : "block";
+    });
+}
 
 window.onload = () => {
     loadItemsInBatches();
     adjustCanvasLayout();
     setupMusicToggle();
     setupMusicSelector(); // 👈 this line
+	setupButterToggle();
 };
 
 window.addEventListener('resize', adjustCanvasLayout);
