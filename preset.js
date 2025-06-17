@@ -33,7 +33,7 @@ function applyPreset2() {
     forceShowItem("top2.png", "top");
     forceShowItem("pants2.png", "pants");
     forceShowItem("shoes2.png", "shoes");
-	forceShowItem("hair1.png","hair");
+	forceShowItem("hair2.png","hair");
 }
 
 // Preset 3: จาก `ที่เก็บถาวร 3.zip`
