@@ -6,7 +6,7 @@ body {
     justify-content: flex-start;
     height: 100vh;
     margin: 0;
-    background-image: url('Background.png');
+    background-image: url('background.jpg');
     background-size: 1180px 500px;
     background-repeat: no-repeat;
     background-position: center top;
