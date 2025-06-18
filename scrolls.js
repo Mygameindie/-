@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ? jsonFiles.map(file => file.replace('.json', ''))
         : [
             "hair", "face", "topunderwear", "shoes", "pants", "skirt",
-            "top", "dress", "jacket", "accessories", "hat", "plants", "weapon"
+            "top", "dress", "jacket", "accessories","maccessories","hat", "plants", "weapon"
         ];
 
     function generatePresetButtons() {

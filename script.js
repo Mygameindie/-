@@ -10,10 +10,12 @@ const jsonFiles = [
     'top.json', 
     'dress.json', 
     'jacket.json', 
-    'accessories.json', 
+    'accessories.json',
+	'maccessories.json',
     'hat.json', 
 	'plants.json',
 	'weapon.json',
+	
 	
 ];
 
@@ -49,7 +51,9 @@ function getZIndex(categoryName) {
         accessories: 11,
         hat: 12,
         plants: 13,
-        weapon: 14
+        weapon: 14,
+		maccessories: 15
+		
     };
     return zIndexMap[categoryName] || 0;
 }
@@ -235,22 +239,33 @@ function toggleVisibility(itemId, categoryName) {
     }
 
     if (selectedItem.style.visibility === 'visible') {
-        if (categoryName === 'onepiece1') {
-            hideSpecificCategories(['topunderwear1', 'bottomunderwear1']);
-        } else if (categoryName === 'dress1') {
-            hideSpecificCategories(['top1', 'pants1', 'skirt1', 'sweatshirt1']);
-        } else if (categoryName === 'dress2') {
-            hideSpecificCategories(['top2', 'pants2', 'skirt2', 'sweatshirt2']);
-        } else if (categoryName.startsWith('top1') || categoryName.startsWith('pants1') || categoryName.startsWith('skirt1') || categoryName.startsWith('sweatshirt1')) {
-            hideSpecificCategories(['dress1']);
-        } else if (categoryName.startsWith('top2') || categoryName.startsWith('pants2') || categoryName.startsWith('skirt2') || categoryName.startsWith('sweatshirt2')) {
-            hideSpecificCategories(['dress2']);
-        } else if (categoryName === 'topunderwear1' || categoryName === 'bottomunderwear1') {
-            hideSpecificCategories(['onepiece1']);
-        }
+    if (categoryName === 'dress') {
+        // Wearing a dress: hide shirts, pants, skirts, sweatshirts, and underwear
+        hideSpecificCategories(['top', 'pants', 'skirt', 'sweatshirt', 'topunderwear']);
+    } else if (
+        categoryName === 'top' || categoryName === 'top' ||
+        categoryName === 'pants' || categoryName === 'pants' ||
+        categoryName === 'skirt' || categoryName === 'skirt' ||
+        categoryName === 'sweatshirt'
+    ) {
+        // Wearing any top/pants/skirt/sweatshirt: hide dress
+        hideSpecificCategories(['dress']);
     }
 }
 
+
+
+if (categoryName === 'maccessories') {
+        // Wearing a dress: hide shirts, pants, skirts, sweatshirts, and underwear
+        hideSpecificCategories(['dress']);
+    } else if (
+	categoryName === 'dress'
+    ) {
+        // Wearing any top/pants/skirt/sweatshirt: hide dress
+        hideSpecificCategories(['maccessories']);
+    }
+
+}
 // Helper function to hide items for specific categories
 function hideSpecificCategories(categories) {
     categories.forEach(category => {

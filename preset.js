@@ -9,7 +9,7 @@ function hideAllCategories() {
         "jacket",
         "accessories",
         "hat",
-        "weapon"
+        "weapon","maccessories",
     ]);
 }
 

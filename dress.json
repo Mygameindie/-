@@ -10,5 +10,11 @@
     "src": "dress2.png",
     "alt": "dress Item 2",
     "visibility": "hidden"
+  },
+  {
+    "id": "dress3",
+    "src": "dress3.png",
+    "alt": "dress Item 3",
+    "visibility": "hidden"
   }
 ]
