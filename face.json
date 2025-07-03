@@ -34,5 +34,11 @@
     "src": "face6.png",
     "alt": "face Item 6",
     "visibility": "hidden"
+  },
+  {
+    "id": "face7",
+    "src": "face7.png",
+    "alt": "face Item 7",
+    "visibility": "hidden"
   }
 ]

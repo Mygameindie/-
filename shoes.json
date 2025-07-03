@@ -29,5 +29,11 @@
     "src": "shoes5.png",
     "alt": "shoes Item 5",
     "visibility": "hidden"
+  },
+  {
+    "id": "shoes6",
+    "src": "shoes6.png",
+    "alt": "shoes Item 6",
+    "visibility": "hidden"
   }
 ]

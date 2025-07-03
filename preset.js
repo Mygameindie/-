@@ -62,6 +62,21 @@ function applyPreset6() {
     forceShowItem("dress2.png","dress");
 	forceShowItem("hair1.png","hair");
 }
+function applyPreset7() {
+    hideAllCategories();
+    forceShowItem("weapon7.png", "weapon");
+    forceShowItem("hair4.png", "hair");
+    forceShowItem("pants5.png", "pants");
+    forceShowItem("top5.png", "top");
+    forceShowItem("face7.png", "face");
+}
+function applyPreset8() {
+    hideAllCategories();
+    forceShowItem("shoes6.png", "shoes");
+    forceShowItem("pants4.png", "pants");
+    forceShowItem("top4.png", "top");
+    forceShowItem("hat8.png", "hat");
+}
 
 // Utility: Keep your original forceShowItem()
 function forceShowItem(itemId, categoryName) {
