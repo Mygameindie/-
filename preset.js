@@ -68,7 +68,6 @@ function applyPreset7() {
     forceShowItem("hair4.png", "hair");
     forceShowItem("pants5.png", "pants");
     forceShowItem("top5.png", "top");
-    forceShowItem("face7.png", "face");
 }
 function applyPreset8() {
     hideAllCategories();
