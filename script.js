@@ -211,7 +211,7 @@ categoryContainer.appendChild(buttonContainer);
 }
 
 function toggleVisibility(itemId, categoryName) {
-    const nonRemovableCategories = ['bottomunderwear', 'face', 'hair'];
+    const nonRemovableCategories = ['bottomunderwear', 'face'];
 
     // Auto-scroll to the item's category heading
     const allHeadings = document.querySelectorAll('.category h3');

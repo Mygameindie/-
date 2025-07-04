@@ -65,7 +65,6 @@ function applyPreset6() {
 function applyPreset7() {
     hideAllCategories();
     forceShowItem("weapon7.png", "weapon");
-    forceShowItem("hair4.png", "hair");
     forceShowItem("pants5.png", "pants");
     forceShowItem("top5.png", "top");
 }
