@@ -75,6 +75,12 @@ function applyPreset8() {
     forceShowItem("top4.png", "top");
     forceShowItem("hat8.png", "hat");
 }
+function applyPreset9() {
+    hideAllCategories();
+    forceShowItem("dress3.png", "dress");
+    forceShowItem("accessories3.png", "accessories");
+    forceShowItem("hat9.png", "hat");
+}
 
 // Utility: Keep your original forceShowItem()
 function forceShowItem(itemId, categoryName) {

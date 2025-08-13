@@ -48,5 +48,11 @@
     "src": "hat8.png",
     "alt": "hat Item 8",
     "visibility": "hidden"
+  },
+  {
+    "id": "hat9",
+    "src": "hat9.png",
+    "alt": "hat Item 9",
+    "visibility": "hidden"
   }
 ]

@@ -69,6 +69,60 @@ async function loadItemFile(file) {
         return [];
     }
 }
+/* === Color Swatch Fixups (append only) === */
+(() => {
+  // 1) Bridge: some code reads window.currentlySelectedItem but it's declared with `let`.
+  try {
+    if (!('currentlySelectedItem' in window)) {
+      Object.defineProperty(window, 'currentlySelectedItem', {
+        get(){ try { return typeof currentlySelectedItem !== 'undefined' ? currentlySelectedItem : null; } catch(e){ return null; } },
+        set(v){ try { currentlySelectedItem = v; } catch(e) { /* no-op */ } }
+      });
+    }
+  } catch (e) { /* ignore */ }
+
+  // 2) Idempotent, safe createColorPicker (in case a later stub overwrote the real one)
+  function buildPickerOnce() {
+    if (document.querySelector('.color-picker-container')) return; // already built
+
+    const container = document.createElement('div');
+    container.className = 'color-picker-container';
+    container.style.display = 'none';
+
+    const title = document.createElement('h4');
+    title.textContent = 'Choose Color:';
+    container.appendChild(title);
+
+    const grid = document.createElement('div');
+    grid.className = 'color-grid';
+
+    // Use your existing palette so the swatch-upgrade can convert them to circles
+    (window.colorPalette || []).forEach(c => {
+      const btn = document.createElement('button');
+      btn.className = 'color-button';
+      btn.textContent = c.name;
+      // keep old behavior for fallback (CSS filter)
+      btn.onclick = () => window.applyColorToItem?.(c.value);
+      grid.appendChild(btn);
+    });
+
+    container.appendChild(grid);
+
+    const close = document.createElement('button');
+    close.className = 'close-color-picker';
+    close.textContent = 'Close';
+    close.onclick = () => window.hideColorPicker?.();
+    container.appendChild(close);
+
+    (document.querySelector('.controls') || document.body).appendChild(container);
+  }
+
+  // Replace/restore global createColorPicker to the safe one (append-only override).
+  window.createColorPicker = function() { buildPickerOnce(); };
+
+  // Build immediately if not present (covers the case where a stub ran earlier)
+  buildPickerOnce();
+})();
 
 // Create color picker UI
 function createColorPicker() {
@@ -425,3 +479,119 @@ function releaseButton2(event) {
 
 window.getZIndex = getZIndex;
 
+/* === Butter SFX (append only) === */
+(function setupButterSfxAppendOnly(){
+  // Create (or reuse) an <audio> element for the butter sound
+  let sfxEl = document.getElementById('butterSfx');
+  if (!sfxEl) {
+    sfxEl = document.createElement('audio');
+    sfxEl.id = 'butterSfx';
+    sfxEl.src = 'butter.mp3'; // <-- put your butter sound file here
+    sfxEl.preload = 'auto';
+    // do not set loop; this is a one-shot SFX
+    document.body.appendChild(sfxEl);
+  }
+
+  // Safely attach an extra listener to the same button without touching existing logic
+  function attach() {
+    const btn = document.getElementById('toggleButterBtn');
+    if (!btn) return;
+
+    // Avoid double-binding if this runs again
+    if (btn.dataset.butterSfxBound === '1') return;
+    btn.dataset.butterSfxBound = '1';
+
+    btn.addEventListener('click', () => {
+      try {
+        // Clone so rapid clicks can overlap without cutting off previous plays
+        const inst = sfxEl.cloneNode(true);
+        // Keep volume independent of BGM
+        inst.volume = 1.0;
+        // Play without affecting the backgroundMusic element
+        inst.play().catch(()=>{ /* ignore iOS blocked edge cases */ });
+      } catch (e) { /* no-op */ }
+    });
+  }
+
+  // Hook after your onload setup without replacing it
+  if (document.readyState === 'complete') {
+    attach();
+  } else {
+    window.addEventListener('load', attach);
+  }
+})();
+/* === Frozen SFX + Frozen Item (append only) === */
+(function setupFrozenAppendOnly(){
+  // 1) Create (or reuse) a dedicated <audio> for the frozen sound
+  let frozenSfx = document.getElementById('frozenSfx');
+  if (!frozenSfx) {
+    frozenSfx = document.createElement('audio');
+    frozenSfx.id = 'frozenSfx';
+    frozenSfx.src = 'frozen.mp3'; // <-- put your frozen sound here
+    frozenSfx.preload = 'auto';
+    document.body.appendChild(frozenSfx);
+  }
+
+  // 2) Ensure a 'frozen' visual item exists but stays hidden by default
+  function ensureFrozenVisual() {
+    const base = document.querySelector('.base-container') || document.body;
+    let frozenImg = document.getElementById('frozen1');
+    if (!frozenImg) {
+      frozenImg = document.createElement('img');
+      frozenImg.id = 'frozen1';
+      frozenImg.src = 'frozen.png';  // <-- your frozen image file
+      frozenImg.alt = 'frozen effect';
+      frozenImg.className = 'frozen';
+      frozenImg.style.position = 'absolute';
+      frozenImg.style.left = '0';
+      frozenImg.style.top = '0';
+      // If your getZIndex exists, try to place it above clothes; else fall back.
+      const z = (typeof window.getZIndex === 'function') ? (window.getZIndex('jacket') + 1) : 18;
+      frozenImg.style.zIndex = (isFinite(z) ? z : 18);
+      frozenImg.style.display = 'none'; // hidden initially
+      base.appendChild(frozenImg);
+    }
+    return frozenImg;
+  }
+
+  // 3) Attach behavior to the frozen button (no edits to existing handlers)
+  function attach() {
+    const btn = document.getElementById('toggleFrozenBtn');
+    if (!btn) return;
+
+    // Guard against double-binding
+    if (btn.dataset.frozenBound === '1') return;
+    btn.dataset.frozenBound = '1';
+
+    // Make sure the visual exists
+    const frozenImg = ensureFrozenVisual();
+
+    btn.addEventListener('click', () => {
+      // Play SFX OVER the BGM (clone for overlap)
+      try {
+        const inst = frozenSfx.cloneNode(true);
+        inst.volume = 1.0;
+        inst.play().catch(()=>{ /* ignore autoplay block on iOS */ });
+      } catch(e) { /* no-op */ }
+
+      // Toggle the frozen visual on canvas
+      if (frozenImg.style.display === 'none') {
+        frozenImg.style.display = 'block';
+        // Optional: ensure it’s on top in case z-index changed elsewhere
+        if (typeof window.getZIndex === 'function') {
+          const z = window.getZIndex('jacket') + 1;
+          if (isFinite(z)) frozenImg.style.zIndex = z;
+        }
+      } else {
+        frozenImg.style.display = 'none';
+      }
+    });
+  }
+
+  // 4) Hook after load without touching your existing window.onload
+  if (document.readyState === 'complete') {
+    attach();
+  } else {
+    window.addEventListener('load', attach);
+  }
+})();
