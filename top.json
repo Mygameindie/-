@@ -28,5 +28,17 @@
     "src": "top5.png",
     "alt": "top Item 5",
     "visibility": "hidden"
+  },
+  {
+    "id": "top6",
+    "src": "top6.png",
+    "alt": "top Item 6",
+    "visibility": "hidden"
+  },
+  {
+    "id": "top7",
+    "src": "top7.png",
+    "alt": "top Item 7",
+    "visibility": "hidden"
   }
 ]

@@ -28,5 +28,11 @@
     "src": "hair5.png",
     "alt": "hair Item 5",
     "visibility": "hidden"
+  },
+  {
+    "id": "hair6",
+    "src": "hair6.png",
+    "alt": "hair Item 6",
+    "visibility": "hidden"
   }
 ]

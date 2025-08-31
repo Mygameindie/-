@@ -15,6 +15,7 @@ const jsonFiles = [
     'hat.json', 
 	'plants.json',
 	'weapon.json',
+	'mask.json'
 	
 	
 ];
@@ -52,7 +53,8 @@ function getZIndex(categoryName) {
         hat: 12,
         plants: 13,
         weapon: 14,
-		maccessories: 15
+		maccessories: 15,
+		mask:16
 		
     };
     return zIndexMap[categoryName] || 0;

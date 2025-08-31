@@ -11,10 +11,12 @@ document.addEventListener("DOMContentLoaded", () => {
     { name: "future", action: applyPreset3 },	
     
 	{ name: "breakdancer", action: applyPreset5 },  
-	{ name: "parasol", action: applyPreset6 }, 
-    { name: "JITB", action: applyPreset7 }, 
-	{ name: "jester", action: applyPreset8 }, 
-	{ name: "mummy", action: applyPreset9 }, 
+{ name: "parasol", action: applyPreset6 },
+{ name: "JITB", action: applyPreset7 },
+{ name: "jester", action: applyPreset8 },
+{ name: "mummy", action: applyPreset9 },
+{ name: "Pole vaulting", action: applyPreset11 },
+{ name: "newspaper", action: applyPreset10 }
     // จาก ที่เก็บถาวร 3.zip
      // จาก ที่เก็บถาวร 2.zip
 
@@ -26,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ? jsonFiles.map(file => file.replace('.json', ''))
         : [
             "hair", "face", "topunderwear", "shoes", "pants", "skirt",
-            "top", "dress", "jacket", "accessories","maccessories","hat", "plants", "weapon"
+            "top", "dress", "jacket", "accessories","maccessories","hat", "plants", "weapon","mask"
         ];
 
     function generatePresetButtons() {
