@@ -786,36 +786,36 @@ window.getZIndex = getZIndex;
   }
 
   // 2) Ensure a 'hammer' visual item exists but stays hidden by default
-function ensureHammerVisual() {
-  const base = document.querySelector('.base-container') || document.body;  // Attach inside game area
-  let hammerImg = document.getElementById('Hammer');
-  if (!hammerImg) {
-    hammerImg = document.createElement('img');
-    hammerImg.id = 'Hammer';
-    hammerImg.src = 'Hammer.png';  // <-- your hammer image file
-    hammerImg.alt = 'hammer effect';
-    hammerImg.className = 'hammer';
-    hammerImg.style.position = 'absolute';
-    hammerImg.style.left = '0';
-    hammerImg.style.top = '0';
+  function ensureHammerVisual() {
+    const base = document.querySelector('.base-container') || document.body;  // Attach inside game area
+    let hammerImg = document.getElementById('Hammer');
+    if (!hammerImg) {
+      hammerImg = document.createElement('img');
+      hammerImg.id = 'Hammer';
+      hammerImg.src = 'Hammer.png';  // <-- your hammer image file
+      hammerImg.alt = 'hammer effect';
+      hammerImg.className = 'hammer';
+      hammerImg.style.position = 'absolute';
+      hammerImg.style.left = '0';
+      hammerImg.style.top = '0';
 
-    // If getZIndex exists, try to place it above clothes; else fall back.
-    const z = (typeof window.getZIndex === 'function')
-      ? (window.getZIndex('jacket') + 1)
-      : 18;
-    hammerImg.style.zIndex = (isFinite(z) ? z : 18);
+      // If getZIndex exists, try to place it above clothes; else fall back.
+      const z = (typeof window.getZIndex === 'function')
+        ? (window.getZIndex('jacket') + 1)
+        : 18;
+      hammerImg.style.zIndex = (isFinite(z) ? z : 18);
 
-    // Size and visibility
-    hammerImg.style.width = 'auto';
-    hammerImg.style.height = 'auto';
-    hammerImg.style.maxWidth = '120%';
-    hammerImg.style.maxHeight = '120%';
-    hammerImg.style.display = 'none'; // hidden initially
+      // Size and visibility
+      hammerImg.style.width = 'auto';
+      hammerImg.style.height = 'auto';
+      hammerImg.style.maxWidth = '120%';
+      hammerImg.style.maxHeight = '120%';
+      hammerImg.style.display = 'none'; // hidden initially
 
-    base.appendChild(hammerImg);
+      base.appendChild(hammerImg);
+    }
+    return hammerImg;
   }
-  return hammerImg;
-}
 
   // 3) Attach to hammer button
   function attach() {
@@ -843,30 +843,22 @@ function ensureHammerVisual() {
       } catch(e) {}
     };
 
+    // ✅ Fixed: use existing face6, do not create new one
     const changeFaceTo6 = () => {
       const faces = document.querySelectorAll('img.face, img[id^="face"]');
       faces.forEach(f => (f.style.visibility = 'hidden'));
 
-      let f6 = document.getElementById('face6') || document.getElementById('face6-image');
-      if (!f6) {
-        f6 = document.createElement('img');
-        f6.id = 'face6';
-        f6.src = 'face6.png';
-        f6.alt = 'face6';
-        f6.className = 'face';
-        f6.style.position = 'absolute';
-        f6.style.left = '0';
-        f6.style.top = '0';
-		
-        f6.style.zIndex =
-          typeof window.getZIndex === 'function'
-            ? window.getZIndex('face') || 15
-            : 15;
-        document.querySelector('.base-container')?.appendChild(f6)
-          || document.body.appendChild(f6);
+      // Look for existing face6 from JSON
+      const f6 =
+        document.getElementById('face6') ||
+        document.querySelector('img[src*="face6.png"]');
+
+      if (f6) {
+        f6.style.visibility = 'visible';
+        f6.dataset.fixedByHammer = 'true';
+      } else {
+        console.warn('⚠️ face6 not found in DOM. Make sure face6.png exists in face.json.');
       }
-      f6.style.visibility = 'visible';
-      f6.dataset.fixedByHammer = 'true';
     };
 
     const showHammer = (e) => {
