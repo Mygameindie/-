@@ -259,7 +259,7 @@ buttonContainer.appendChild(buttonWrap);
 categoryContainer.appendChild(buttonContainer);
             });
 
-            //controlsContainer.appendChild(categoryContainer);
+            controlsContainer.appendChild(categoryContainer);
         }));
 
         await new Promise(resolve => setTimeout(resolve, 0.1));
@@ -536,7 +536,7 @@ window.getZIndex = getZIndex;
 
   // 2) Ensure a 'frozen' visual item exists but stays hidden by default
   function ensureFrozenVisual() {
-    const base = document.querySelector('.base-container') || document.body;
+    const base = document.body;  // Always attach hammer to body to avoid scroll trap
     let frozenImg = document.getElementById('frozen1');
     if (!frozenImg) {
       frozenImg = document.createElement('img');
@@ -766,4 +766,195 @@ window.getZIndex = getZIndex;
     const src = pickHatSfx(btn);
     if (src) playCopy(src);
   });
+})();
+/* === Hammer SFX + Visual (press-and-hold + face6 change + size fix) === */
+(function setupHammerAppendOnly(){
+  // 0) Hide old hammer if still visible
+  window.addEventListener('load', () => {
+    const oldHammer = document.getElementById('Hammer') || document.getElementById('hammer');
+    if (oldHammer) oldHammer.style.display = 'none';
+  }, { once:true });
+
+  // 1) Create (or reuse) hammer sound
+  let hammerSfx = document.getElementById('hammerSfx');
+  if (!hammerSfx) {
+    hammerSfx = document.createElement('audio');
+    hammerSfx.id = 'hammerSfx';
+    hammerSfx.src = 'hammer.mp3';
+    hammerSfx.preload = 'auto';
+    document.body.appendChild(hammerSfx);
+  }
+
+  // 2) Ensure a 'hammer' visual item exists but stays hidden by default
+function ensureHammerVisual() {
+  const base = document.querySelector('.base-container') || document.body;  // Attach inside game area
+  let hammerImg = document.getElementById('Hammer');
+  if (!hammerImg) {
+    hammerImg = document.createElement('img');
+    hammerImg.id = 'Hammer';
+    hammerImg.src = 'Hammer.png';  // <-- your hammer image file
+    hammerImg.alt = 'hammer effect';
+    hammerImg.className = 'hammer';
+    hammerImg.style.position = 'absolute';
+    hammerImg.style.left = '0';
+    hammerImg.style.top = '0';
+
+    // If getZIndex exists, try to place it above clothes; else fall back.
+    const z = (typeof window.getZIndex === 'function')
+      ? (window.getZIndex('jacket') + 1)
+      : 18;
+    hammerImg.style.zIndex = (isFinite(z) ? z : 18);
+
+    // Size and visibility
+    hammerImg.style.width = 'auto';
+    hammerImg.style.height = 'auto';
+    hammerImg.style.maxWidth = '120%';
+    hammerImg.style.maxHeight = '120%';
+    hammerImg.style.display = 'none'; // hidden initially
+
+    base.appendChild(hammerImg);
+  }
+  return hammerImg;
+}
+
+  // 3) Attach to hammer button
+  function attach() {
+    const btn = document.getElementById('toggleHammerBtn');
+    if (!btn) return;
+
+    // Label + prevent duplicates
+    if (!btn.dataset.hammerLabeled) {
+      btn.dataset.hammerLabeled = '1';
+      btn.textContent = btn.textContent?.trim() ? btn.textContent : 'Hammer';
+      btn.title = btn.title || 'Hammer';
+      if (!btn.getAttribute('aria-label')) btn.setAttribute('aria-label', 'Hammer');
+    }
+    if (btn.dataset.hammerBound === '1') return;
+    btn.dataset.hammerBound = '1';
+
+    const hammerImg = ensureHammerVisual();
+
+    // === Helpers ===
+    const playHammer = () => {
+      try {
+        const inst = hammerSfx.cloneNode(true);
+        inst.volume = 1.0;
+        inst.play().catch(()=>{});
+      } catch(e) {}
+    };
+
+    const changeFaceTo6 = () => {
+      const faces = document.querySelectorAll('img.face, img[id^="face"]');
+      faces.forEach(f => (f.style.visibility = 'hidden'));
+
+      let f6 = document.getElementById('face6') || document.getElementById('face6-image');
+      if (!f6) {
+        f6 = document.createElement('img');
+        f6.id = 'face6';
+        f6.src = 'face6.png';
+        f6.alt = 'face6';
+        f6.className = 'face';
+        f6.style.position = 'absolute';
+        f6.style.left = '0';
+        f6.style.top = '0';
+		
+        f6.style.zIndex =
+          typeof window.getZIndex === 'function'
+            ? window.getZIndex('face') || 15
+            : 15;
+        document.querySelector('.base-container')?.appendChild(f6)
+          || document.body.appendChild(f6);
+      }
+      f6.style.visibility = 'visible';
+      f6.dataset.fixedByHammer = 'true';
+    };
+
+    const showHammer = (e) => {
+      hammerImg.style.display = 'block';
+      if (typeof window.getZIndex === 'function') {
+        const z = window.getZIndex('jacket') + 1;
+        if (isFinite(z)) hammerImg.style.zIndex = z;
+      }
+      playHammer();
+      changeFaceTo6(); // 💥 change face when pressing hammer
+      if (e && e.preventDefault) e.preventDefault();
+    };
+
+    const hideHammer = () => {
+      hammerImg.style.display = 'none';
+    };
+
+    // Mouse + touch press-hold
+    btn.addEventListener('mousedown', showHammer);
+    btn.addEventListener('touchstart', showHammer, { passive: false });
+    window.addEventListener('mouseup', hideHammer);
+    window.addEventListener('mouseleave', hideHammer);
+    window.addEventListener('touchend', hideHammer);
+    window.addEventListener('touchcancel', hideHammer);
+  }
+
+  // 4) Initialize after page load
+  if (document.readyState === 'complete') {
+    attach();
+  } else {
+    window.addEventListener('load', attach);
+  }
+})();
+
+
+/* === Base2 press-and-hold (append-only, robust) ========================= */
+(function attachBase2PressHold(){
+  function showBase2(){ 
+    const el = document.getElementById('base2-image'); 
+    if (el) el.style.display = 'block'; 
+  }
+  function hideBase2(){ 
+    const el = document.getElementById('base2-image'); 
+    if (el) el.style.display = 'none'; 
+  }
+
+  function onDown(e){ 
+    if (e && e.preventDefault) e.preventDefault(); 
+    showBase2(); 
+    // prevent button from staying focused (mobile/safari quirks)
+    if (e && e.target && e.target.blur) e.target.blur();
+  }
+  function onUp(){ hideBase2(); }
+
+  window.addEventListener('load', () => {
+    const btn =
+      document.querySelector('.small-button.button-1') ||
+      document.getElementById('toggleBase2Btn') ||
+      document.getElementById('base2Btn');
+
+    if (!btn) return;
+
+    // remove any legacy inline click handler to avoid conflicts
+    if (btn.hasAttribute('onclick')) btn.removeAttribute('onclick');
+
+    // mouse + touch (press to show, release to hide)
+    btn.addEventListener('mousedown', onDown);
+    btn.addEventListener('touchstart', onDown, { passive: false });
+
+    window.addEventListener('mouseup', onUp);
+    window.addEventListener('mouseleave', onUp);
+    window.addEventListener('touchend', onUp);
+    window.addEventListener('touchcancel', onUp);
+
+    // keyboard accessibility: hold Space/Enter = show; release = hide
+    btn.addEventListener('keydown', (ev) => {
+      if (ev.key === ' ' || ev.key === 'Enter') onDown(ev);
+    });
+    btn.addEventListener('keyup', (ev) => {
+      if (ev.key === ' ' || ev.key === 'Enter') onUp();
+    });
+  });
+
+  // ✅ Back-compat alias for any stray calls still using changeToBase2()
+  window.changeToBase2 = function(){
+    showBase2();
+    // auto-hide on next mouseup (matches press-and-hold semantics)
+    window.addEventListener('mouseup', hideBase2, { once: true });
+    window.addEventListener('touchend', hideBase2, { once: true });
+  };
 })();

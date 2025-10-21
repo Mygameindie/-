@@ -14,19 +14,30 @@
   <button onclick="enterGame()">Play</button>
 </div>
 
-<div class="game-container">
-  <div class="base-container">
-    <img id="base-image" src="Base.png" alt="Base Image" />
-    <img id="background-image" src="Background.png" alt="Background Image" />
 
-    <!-- Butter -->
-    <img id="butter1" src="butter1.png" style="display:none; position:absolute; top:0; left:0; z-index:100;" />
-    <button id="toggleButterBtn" style="position:absolute; top:10px; left:10px; z-index:200;">Add Butter</button>
 
-    <!-- Frozen -->
-    <img id="frozen" src="frozen.png" style="display:none; position:absolute; top:0; left:0; z-index:101;" />
-    <button id="toggleFrozenBtn" style="position:absolute; top:10px; left:130px; z-index:200;">Frozen</button>
-  </div>
+    <div class="game-container">
+		<div class="base-container">
+<img id="base-image"  src="Base.png"  style="z-index: 1">
+<img id="base2-image" src="Base2.png" style="z-index: 3; display: none;">
+
+
+
+			<button class="small-button button-1" onclick="changeToBase2()"></button>
+			<img id="background-image" src="Background.png" alt="Background Image" />
+
+			<!-- Butter -->
+			<img id="butter1" src="butter1.png" style="display:none; position:absolute; top:0; left:0; z-index:100;" />
+			<button id="toggleButterBtn" style="position:absolute; top:10px; left:10px; z-index:2000;">Add Butter</button>
+
+			<!-- Frozen -->
+			<img id="frozen" src="frozen.png" style="display:none; position:absolute; top:0; left:0; z-index:101;" />
+			<button id="toggleFrozenBtn" style="position:absolute; top:10px; left:130px; z-index:2000;">Frozen</button>
+
+			<img id="hammer" src="Hammer.png" style="display:none; position:absolute; top:0; left:0; z-index:102;" />
+			<button id="toggleHammerBtn" style="position:absolute; top:10px; left:250px; z-index:2000;">Hammer</button>
+
+		</div>
 
   <!-- ✅ Moved here: controls only visible in game -->
   <div class="controls">

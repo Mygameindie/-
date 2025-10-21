@@ -414,3 +414,38 @@ body {
   border: 1px solid #ccc;
   margin-left: 5px;
 }
+/* Ensure buttons scale with the base container */
+.small-button {
+    position: absolute;
+    width: 8%; /* Adjusted size dynamically */
+    height: 8%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    opacity: 1;
+    transform: translate(-50%, -50%); /* Centering */
+}
+
+/* Button Positions (Relative to Base Container) */
+.button-1 {
+    top: 47%; /* Adjusted using percentage */
+    left: 63%;
+}
+
+
+/* Responsive Scaling */
+@media (max-width: 600px) {
+    .base-container {
+        width: 90vw; /* Expand width on smaller screens */
+        max-width: 400px;
+    }
+
+    .small-button {
+        width: 4%;
+        height: 4%;
+    }
+}
+
+.category {
+  display: none !important;
+}
