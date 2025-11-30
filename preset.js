@@ -9,7 +9,7 @@ function hideAllCategories() {
 		"jacket",
 		"accessories",
 		"hat",
-		"weapon", "maccessories", "mask","hair"
+		"weapon", "maccessories", "mask","hair","plants"
 	]);
 }
 
@@ -48,6 +48,7 @@ function applyPreset3() {
 function applyPreset4() {
 	hideAllCategories();
 	forceShowItem("hair1.png", "hair");
+	
 }
 
 function applyPreset5() {
