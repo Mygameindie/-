@@ -39,7 +39,7 @@ let currentlySelectedItem = null;
 // Helper function to set z-index for categories
 function getZIndex(categoryName) {
     const zIndexMap = {
-        hair: 1,
+        hair: 4,
         face: 2,
         bottomunderwear: 3,
         topunderwear: 4,
